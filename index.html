@@ -1,151 +1,226 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="https://i.postimg.cc/MZ9VVWn4/Untitled-design.png" type="image/jpeg" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PROFESSOR AYAN - Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <title>Ayan Graphics-Ai Engineer</title>
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.postimg.cc/MZ9VVWn4/Untitled-design.png" type="image/jpeg" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html {
-      height: 100%;
-      overflow-x: hidden;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      background: black;
-      scroll-padding-top: 80px;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://i.postimg.cc/Y9BvDKZp/green-animation-bg.gif') center center/cover no-repeat;
-      z-index: -2;
-      animation: moveBackground 20s linear infinite;
-      opacity: 0.4;
-    }
-    @keyframes moveBackground {
-      0% { background-position: center top; }
-      50% { background-position: center center; }
-      100% { background-position: center bottom; }
-    }
-    nav {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-    }
-    .logo {
-      font-size: 2rem;
-      font-weight: 600;
-      color: #66ccff;
-      text-shadow: 0 0 10px #66ccff, 0 0 20px #66ccff;
-      animation: glow 2s ease-in-out infinite alternate;
-      font-family: Helvetica, sans-serif;
-    }
-    .nav-links a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: -3px;
-      left: 0;
-      background-color: #66ccff;
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s ease-out;
-    }
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
-    }
-    .nav-links a:hover {
-      color: #66ccff;
-      text-shadow: 0 0 5px #66ccff, 0 0 10px #66ccff, 0 0 20px #66ccff;
-    }
-    @keyframes glow {
-      0% { text-shadow: 0 0 10px #66ccff, 0 0 20px #66ccff; }
-      100% { text-shadow: 0 0 20px #66ccff, 0 0 40px #66ccff; }
-    }
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #66ccff;
-      display: block;
-      margin: 2rem auto;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* AI Assistant Styles */
-    #ai-box {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 300px;
-      background: rgba(0,0,0,0.8);
-      border: 1px solid #66ccff;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 14px;
-      z-index: 2000;
-      color: white;
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: #66ccff;
+      background: transparent;
+      overflow: hidden;
     }
-    #ai-response {
-      min-height: 60px;
+
+    canvas#matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: black;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px 20px;
+      height: 100%;
+      overflow-y: auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 40px 30px;
+      border: 1px solid #66ccff;
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+      backdrop-filter: blur(2px);
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #66ccff;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
       margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .info-box {
+      text-align: left;
+      margin-top: 25px;
+    }
+
+    .info-box h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #66ccff;
+      padding-bottom: 5px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+
+    .info-box ul li::before {
+      content: "› ";
       color: #66ccff;
     }
-    #ai-input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 5px;
+
+    .telegram-btn, .whatsapp-btn {
+      display: inline-block;
+      margin: 15px 10px 0 10px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #66ccff, #0044cc);
       border: none;
-      outline: none;
+      border-radius: 50px;
+      color: black;
+      font-size: 1.1em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #66ccff;
+    }
+
+    .telegram-btn:hover, .whatsapp-btn:hover {
+      background: linear-gradient(135deg, #0044cc, #66ccff);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #66ccff;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #66ccff;
     }
   </style>
 </head>
-<body onload="openAssistant()">
+<body>
 
-<div id="ai-box">
-  <div id="ai-response">Hi! Ask me anything about Ayan's Portfolio.</div>
-  <input id="ai-input" placeholder="Type your question..." />
-</div>
-
+<!-- Matrix Background Canvas -->
+<canvas id="matrix"></canvas>
 <script>
-function openAssistant() {
-  const input = document.getElementById("ai-input");
-  const output = document.getElementById("ai-response");
-  input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-      const q = input.value.toLowerCase();
-      let response = "I'm not sure how to answer that.";
-      if (q.includes("name")) response = "This is the official portfolio of Professor Ayan.";
-      else if (q.includes("skills")) response = "Graphic Design, Web Design, AI Tools, E-books, Portfolio.";
-      else if (q.includes("contact")) response = "You can contact at professorayanxoffical@gmail.com.";
-      output.innerText = "Typing...";
-      setTimeout(() => output.innerText = response, 700);
-      input.value = "";
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const letters = "01";
+  const fontSize = 16;
+  const columns = Math.floor(canvas.width / fontSize);
+  const drops = Array.from({ length: columns }).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0066ff"; // Blue characters
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(Math.floor(Math.random() * letters.length));
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+
+      ctx.fillText(text, x, y);
+
+      if (y > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
     }
+  }
+
+  setInterval(drawMatrix, 40);
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
-}
 </script>
+
+<!-- Overlay -->
+<div class="overlay"></div>
+
+<!-- Content -->
+<div class="container">
+  <div class="card">
+    <img class="profile-pic" src="https://i.postimg.cc/k4PbRrZm/Chat-GPT-Image-Jun-13-2025-01-21-57-AM.png" alt="Profile Picture" />
+    <h1>PROFESSOR AYAN X OFFICAL</h1>
+    <p>Hi! I'm AYAN — a creative tech lover building websites, Ai Tools, E-books. I'm the owner of AYAN GRAPHICS X AI ENGINEER.</p>
+
+    <div class="info-box">
+      <h2>About Me</h2>
+      <ul>
+        <li><strong>Country:</strong> Pakistan</li>
+        <li><strong>Age:</strong> 16</li>
+        <li><strong>School:</strong> High School</li>
+        <li><strong>Hobbies:</strong> Coding, Gaming, Designing, Playing</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h2>Skills</h2>
+      <ul>
+        <li>Graphic Design</li>
+        <li>Web Design</li>
+        <li>Ai Website And Tools</li>
+        <li>Making E-books</li>
+        <li>Profesional Portfolio</li>
+      </ul>
+    </div>
+
+    <a href="https://www.instagram.com/ayanx_offical/" class="telegram-btn" target="_blank">Join My Instagram</a>
+    <a href="https://chat.whatsapp.com/LMwqr7EspJJHjHRvBi0zEw" class="whatsapp-btn" target="_blank">Join My WhatsAp</a>
+  </div>
+
+  <footer>© 2025 PROxAYAN. All rights reserved.</footer>
+</div>
 
 </body>
 </html>
