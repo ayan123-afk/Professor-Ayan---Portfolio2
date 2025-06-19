@@ -19,8 +19,6 @@
       background: black;
       scroll-padding-top: 80px;
     }
-
-    /* Background animation */
     body::before {
       content: "";
       position: fixed;
@@ -31,14 +29,11 @@
       animation: moveBackground 20s linear infinite;
       opacity: 0.4;
     }
-
     @keyframes moveBackground {
       0% { background-position: center top; }
       50% { background-position: center center; }
       100% { background-position: center bottom; }
     }
-
-    /* Navbar */
     nav {
       background: rgba(0, 0, 0, 0.2);
       padding: 1rem 2rem;
@@ -48,7 +43,6 @@
       backdrop-filter: blur(8px);
       z-index: 1000;
     }
-
     .logo {
       font-size: 2rem;
       font-weight: 600;
@@ -57,7 +51,6 @@
       animation: glow 2s ease-in-out infinite alternate;
       font-family: Helvetica, sans-serif;
     }
-
     .nav-links a {
       color: white;
       margin-left: 20px;
@@ -66,7 +59,6 @@
       position: relative;
       transition: color 0.3s, text-shadow 0.3s;
     }
-
     .nav-links a::after {
       content: "";
       position: absolute;
@@ -79,22 +71,18 @@
       transform-origin: bottom right;
       transition: transform 0.3s ease-out;
     }
-
     .nav-links a:hover::after {
       transform: scaleX(1);
       transform-origin: bottom left;
     }
-
     .nav-links a:hover {
       color: #66ccff;
       text-shadow: 0 0 5px #66ccff, 0 0 10px #66ccff, 0 0 20px #66ccff;
     }
-
     @keyframes glow {
       0% { text-shadow: 0 0 10px #66ccff, 0 0 20px #66ccff; }
       100% { text-shadow: 0 0 20px #66ccff, 0 0 40px #66ccff; }
     }
-
     .profile-pic {
       width: 160px;
       height: 160px;
@@ -104,9 +92,60 @@
       display: block;
       margin: 2rem auto;
     }
+
+    /* AI Assistant Styles */
+    #ai-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #66ccff;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 14px;
+      z-index: 2000;
+      color: white;
+    }
+    #ai-response {
+      min-height: 60px;
+      margin-bottom: 10px;
+      color: #66ccff;
+    }
+    #ai-input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
   </style>
 </head>
-<body>
-<!-- HTML BODY REMAINS SAME -->
+<body onload="openAssistant()">
+
+<div id="ai-box">
+  <div id="ai-response">Hi! Ask me anything about Ayan's Portfolio.</div>
+  <input id="ai-input" placeholder="Type your question..." />
+</div>
+
+<script>
+function openAssistant() {
+  const input = document.getElementById("ai-input");
+  const output = document.getElementById("ai-response");
+  input.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      const q = input.value.toLowerCase();
+      let response = "I'm not sure how to answer that.";
+      if (q.includes("name")) response = "This is the official portfolio of Professor Ayan.";
+      else if (q.includes("skills")) response = "Graphic Design, Web Design, AI Tools, E-books, Portfolio.";
+      else if (q.includes("contact")) response = "You can contact at professorayanxoffical@gmail.com.";
+      output.innerText = "Typing...";
+      setTimeout(() => output.innerText = response, 700);
+      input.value = "";
+    }
+  });
+}
+</script>
+
 </body>
 </html>
